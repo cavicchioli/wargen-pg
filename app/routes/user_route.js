@@ -16,12 +16,7 @@ module.exports = function(server) {
 
 	server.get('/todos', user.RetornaUsuarios)
 
-	server.get('/login', function(req, res) {  
-  			res.render('login')});
-
-	server.get('/signup', function(req, res) {  
-  			res.render('signup')});
-
+	
 	//rote to login a user and create a token
 	//server.post('/login', user.login);
 
