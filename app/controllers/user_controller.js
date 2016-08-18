@@ -1,12 +1,12 @@
 'use strict';
 
-var db = require("../models/user.js");
+var db = require("../models/user_model.js");
 
 var config = require("../../config/index.js");
 
 /**
  * Cria um token do usuário que é passado, afim de usar na sessão e validação do usuário (middleware)
- */
+ 
 function createToken(user) {
 
     var token = jsonwebtoken.sign({
@@ -18,7 +18,7 @@ function createToken(user) {
     });
     return token;
 };
-
+*/
 
 exports.criaUsuario = function(req, res) {
 
@@ -29,11 +29,37 @@ exports.criaUsuario = function(req, res) {
             res.send(err);
             return;
         }
+
         res.json({
             sucess:true,
             msg: 'Usuário criado com sucesso!'
             //,token: token
         });
+    });
 
   
 };
+
+
+exports.RetornaUsuarios = function(req, res) {
+
+    //var token = createToken(req);
+
+    db.todosUsuarios(function(err) {
+        if (err) {
+            res.send(err);
+            return;
+        }
+
+/*
+        res.json({
+            sucess:true,
+            msg: 'Usuário criado com sucesso!'
+            //,token: token
+        });
+        */
+    });
+
+  
+};
+

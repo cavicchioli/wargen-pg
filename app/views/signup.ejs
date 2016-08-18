@@ -1,0 +1,53 @@
+﻿
+  <!-- Bootstrap 3.3.5 -->
+      <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+      <!-- Theme style -->
+      <link href="/css/template/AdminLTE.min.css" rel="stylesheet" />
+
+  <div class="hold-transition register-page" ng-controller="UserCreateController as user">
+	<div class="register-box">
+	  <div class="register-logo">
+		  <a href="/index"><b>WAR</b>GEN</a>
+	  </div>
+
+	  <div class="register-box-body">
+		<p class="login-box-msg">Registrar novo usuário</p>
+		<form method="post" action="/signup">
+		  <div class="form-group has-feedback">
+			<input name="nome" type="text" class="form-control" placeholder="Nome completo">
+			<span class="form-control-feedback"></span>
+		  </div>
+		  <div class="form-group has-feedback">
+			<input name="email" type="text" class="form-control" placeholder="Email">
+			<span class="form-control-feedback"></span>
+		  </div>
+		    <div class="form-group has-feedback">
+			<input name="email_conf" type="text" class="form-control" placeholder="Confirmar email">
+			<span class="form-control-feedback"></span>
+		  </div>
+		  <div class="form-group has-feedback">
+			<input name="senha" type="password" class="form-control" placeholder="Senha">
+			<span class="form-control-feedback"></span>
+		  </div>
+		  <div class="form-group has-feedback">
+			<input name="senha_conf" type="password" class="form-control" placeholder="Confirmar senha">
+			<span class="form-control-feedback"></span>
+		  </div>
+		  <div class="row">
+			<div class="col-xs-8">
+			</div><!-- /.col -->
+			<div class="col-xs-4">
+			  <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
+			</div><!-- /.col -->
+		  </div>
+		</form>
+
+		<a href="/login" class="text-center">Eu já possuo uma conta</a>
+	  </div><!-- /.form-box -->
+	</div><!-- /.register-box -->
+
+      <!-- jQuery 2.1.4 -->
+      <script src="/lib/jquery/dist/jquery.min.js"></script>
+      <!-- Bootstrap 3.3.5 -->
+      <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+  </div>
