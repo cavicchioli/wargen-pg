@@ -1,2 +1,0 @@
-C:\wargen\wargen\obj\Debug\wargen.njsprojResolveAssemblyReference.cache
-C:\wargen\wargen\bin\Microsoft.NodejsTools.WebRole.dll

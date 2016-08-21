@@ -12,9 +12,9 @@ module.exports = function(server) {
 	//server.get('/login', user.viewLogin);
 
 	// Creating a new user
-	server.post('/signup', user.criaUsuario);
+	server.post('/usuario/criar', user.criaUsuario);
 
-	server.get('/todos', user.RetornaUsuarios)
+	server.get('/usuario/todos', user.RetornaUsuarios)
 
 	
 	//rote to login a user and create a token
