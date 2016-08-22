@@ -22,6 +22,9 @@ function createToken(user) {
 
 exports.criaUsuario = function(req, res) {
 
+
+console.log('req controller:',req.body);
+
 	//var token = createToken(req);
 
 	db.insere(function(err) {

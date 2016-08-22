@@ -1,6 +1,4 @@
 $(function () {
-
-
     //MODEL
     var Usuario = function (data) {
         this.nome = ko.observable(data.nome);
@@ -11,18 +9,22 @@ $(function () {
     };
 
     Usuario.prototype.criaUsuario = function () {
+
         var request = $.ajax({
             type: "POST",
             url: "/usuario/criar",
+            contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: {
+            data:
+JSON.stringify (
+             {
                 nome: this.nome(),
                 email: this.email(),
                 email_conf: this.email_conf(),
                 senha: this.senha(),
                 senha_conf: this.senha_conf()
 
-            }
+            })
         });
 
         request.done(function (response) {
@@ -76,14 +78,7 @@ $(function () {
 
     };
 
-
     var viewModel = new UsuariosViewModel();
 
-    ////insert some fake users for now
-    //viewModel.expenses.push(new Expense({
-    //	desc: "phone call",
-    //    time: "0.5",
-    //}));
-
-    //ko.applyBindings(viewModel);
+    ko.applyBindings(viewModel);
 });

@@ -10,6 +10,10 @@ var config = require("../../config/index.js");
 exports.insere = function(req, res) {
 
 
+console.log('req', req.nome);
+
+
+
 console.log("NOVO USÁRIO:: Nome:"+req.nome+" Email:"+req.email+" Conf. Email:"+req.email_conf+" Senha:"+req.senha+" Conf. Senha:"+req.senha_conf);
 
 			pg.connect(config.connectionString, function(err, client, done) {
