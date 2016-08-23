@@ -9,37 +9,47 @@ var config = require("../../config/index.js");
 
 exports.insere = function(req, res) {
 
+	console.log("NOVO USÁRIO:: Nome:"+req.nome+" Email:"+req.email+" Conf. Email:"+req.email_conf+" Senha:"+req.senha+" Conf. Senha:"+req.senha_conf);
 
-console.log('req', req.nome);
+	pg.connect(config.connectionString, function(err, client, done) {
+		if(err) {
 
+			res.json({
+				sucess:false,
+				msg: err });
+		}else{
 
+			client.query("select sp_wargen_cadastra_usuario($1,$2,$3,$4,$5) as msg",[req.nome,req.email,req.email_conf,req.senha,req.senha_conf],
 
-console.log("NOVO USÁRIO:: Nome:"+req.nome+" Email:"+req.email+" Conf. Email:"+req.email_conf+" Senha:"+req.senha+" Conf. Senha:"+req.senha_conf);
+				function(err, result) {
 
-			pg.connect(config.connectionString, function(err, client, done) {
-				  if(err) {
-				  	
-				    res.send({erro : err});
-				  }else{
+					done();
 
-				  
-				  	client.query("select sp_wargen_cadastra_usuario($1,$2,$3,$4,$5) as msg",[req.nome,req.email,req.email_conf,req.senha,req.senha_conf],
+					if (err){ 
+						console.log(err);
+						res.json({
+							sucess:false,
+							msg: err });
 
-				  		function(err, result) {
-					    
-					    done();
+					}else{
+						if(result.rows[0]["msg"]=="OK")
+						{
+							res.json({
+								sucess:true,
+								msg: result.rows[0]["msg"]});
+						}else
+						{
+							res.json({
+								sucess:false,
+								msg: result.rows[0]["msg"]});
+						}
+					}
 
-					    if (err){ console.log(err); res.send({erro : err}); 
-					    }else{
-					    	
-			      			res.send(result.rows);
-			      		}
+					client.end();
 
-						client.end();
-					    
-				 	});
-			 	}
-			 });
+				});
+		}
+	});
 
 			/* FUNÇÃO PARA FAZER O HASH DA SENHA DO USUARIO
 bcrypt.hash(req.senha, null, null, function(err, hash) {
@@ -50,37 +60,37 @@ bcrypt.hash(req.senha, null, null, function(err, hash) {
     user.senha = hash;
     next();
   });
-*/
+  */
 
 };
 
 
 exports.todosUsuarios = function(req, res) {
 
-sql ="select * from usuarios";
+	sql ="select * from usuarios";
 
-			pg.connect(config.connectionString, function(err, client, done) {
-				  if(err) {
-				  	
-				    res.send({erro : err});
-				  }else{
+	pg.connect(config.connectionString, function(err, client, done) {
+		if(err) {
 
-				  
-				  	client.query(sql, function(err, result) {
-					    
-					    done();
+			res.send({erro : err});
+		}else{
 
-					    if (err){ console.log(err); res.send({erro : err}); 
-					    }else{
-					    	
-			      			res.send(result.rows);
-			      		}
 
-						client.end();
-					    
-				 	});
-			 	}
-			 });
+			client.query(sql, function(err, result) {
+
+				done();
+
+				if (err){ console.log(err); res.send({erro : err}); 
+			}else{
+
+				res.send(result.rows);
+			}
+
+			client.end();
+
+		});
+		}
+	});
 
 };
 

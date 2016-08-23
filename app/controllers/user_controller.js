@@ -22,12 +22,13 @@ function createToken(user) {
 
 exports.criaUsuario = function(req, res) {
 
+    db.insere(req.body, res);
 
-console.log('req controller:',req.body);
 
-	//var token = createToken(req);
+console.log(res.body);
 
-	db.insere(function(err) {
+	/*db.insere(req, res,
+        function(err) {
         if (err) {
             res.send(err);
             return;
@@ -38,7 +39,7 @@ console.log('req controller:',req.body);
             msg: 'Usuário criado com sucesso!'
             //,token: token
         });
-    });
+    });*/
 
   
 };

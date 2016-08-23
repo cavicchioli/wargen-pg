@@ -13,18 +13,19 @@ $(function () {
         var request = $.ajax({
             type: "POST",
             url: "/usuario/criar",
-            contentType: "application/json; charset=utf-8",
+            //contentType: "application/json; charset=utf-8",
             dataType: "json",
             data:
-JSON.stringify (
-             {
+            //JSON.stringify (
+            {
                 nome: this.nome(),
                 email: this.email(),
                 email_conf: this.email_conf(),
                 senha: this.senha(),
                 senha_conf: this.senha_conf()
 
-            })
+            }
+            //)
         });
 
         request.done(function (response) {
