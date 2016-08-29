@@ -40,6 +40,31 @@ $(function () {
         });
     }
 
+    Usuario.prototype.logarUsuario = function () {
+
+        var request = $.ajax({
+            type: "POST",
+            url: "/usuario/logar",
+            //contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data:
+            //JSON.stringify (
+            {
+                email: this.email(),
+                senha: this.senha()
+            }
+            //)
+        });
+
+        request.done(function (response) {
+            console.log(response);
+            viewModel.usuarios.push(new Usuario({
+                email: response.email,
+                senha: response.senha 
+            }));
+        });
+    }
+
     var UsuariosViewModel = function () {
         var self = this;
         self.usuarios = ko.observableArray();
@@ -54,6 +79,16 @@ $(function () {
             });
 
             usuario.criaUsuario();
+        }
+
+        self.validaUsuario = function () {
+            var usuario = new Usuario({
+              
+                email: $('#email').val(),
+                senha: $('#senha').val()
+            });
+
+            usuario.logarUsuario();
         }
 
         //var refresh = function () {

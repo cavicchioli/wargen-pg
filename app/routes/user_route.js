@@ -16,6 +16,8 @@ module.exports = function(server) {
 
 	server.get('/usuario/todos', user.RetornaUsuarios)
 
+	server.post('/usuario/logar', user.validaLogin);
+
 	
 	//rote to login a user and create a token
 	//server.post('/login', user.login);

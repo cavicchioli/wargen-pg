@@ -22,27 +22,26 @@ function createToken(user) {
 
 exports.criaUsuario = function(req, res) {
 
-    db.insere(req.body, res);
-
-
-console.log(res.body);
-
-	/*db.insere(req, res,
-        function(err) {
-        if (err) {
-            res.send(err);
-            return;
-        }
-
-        res.json({
-            sucess:true,
-            msg: 'Usuário criado com sucesso!'
-            //,token: token
-        });
-    });*/
-
-  
+    db.insere(req, res);
+    console.log(res.body);
 };
+
+exports.validaLogin = function(req, res) {
+
+    db.validaUsuario(req, function(result) {
+
+        if (!result.sucess) {
+            console.log(result.err);
+            res.send(result.err);
+            return;
+        } else {
+            console.log(result.sucess);
+
+            return res.redirect('/cubo'); 
+        }
+    });
+};
+
 
 
 exports.RetornaUsuarios = function(req, res) {
@@ -55,15 +54,14 @@ exports.RetornaUsuarios = function(req, res) {
             return;
         }
 
-/*
-        res.json({
-            sucess:true,
-            msg: 'Usuário criado com sucesso!'
-            //,token: token
-        });
-        */
+        /*
+                res.json({
+                    sucess:true,
+                    msg: 'Usuário criado com sucesso!'
+                    //,token: token
+                });
+                */
     });
 
-  
-};
 
+};
