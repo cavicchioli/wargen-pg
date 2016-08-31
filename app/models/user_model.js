@@ -67,7 +67,7 @@ bcrypt.hash(req.senha, null, null, function(err, hash) {
 
 exports.validaUsuario = function(req, callback) {
 
-	console.log("senha: " + req.body.senha + " email: " + req.body.email);
+	//console.log("senha: " + req.body.senha + " email: " + req.body.email);
 
 	pg.connect(config.connectionString, function(err, client, done) {
 		if (err) {

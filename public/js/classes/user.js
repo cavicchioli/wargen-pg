@@ -25,11 +25,9 @@ $(function () {
                 senha_conf: this.senha_conf()
 
             }
-            //)
-        });
-
-        request.done(function (response) {
-            console.log(response);
+        }).done(function (response) {
+            console.log('obteve resposta do servidor');
+            console.log(response.res);
             viewModel.usuarios.push(new Usuario({
                 nome: response.nome,
                 email: response.email,
@@ -52,11 +50,14 @@ $(function () {
             {
                 email: this.email(),
                 senha: this.senha()
+            },
+            sucess: function (data) {
+                console.log(data);
+                 console.log('chegou aqui e passou pelo login');
             }
             //)
-        });
-
-        request.done(function (response) {
+        }).done(function (response) {
+           
             console.log(response);
             viewModel.usuarios.push(new Usuario({
                 email: response.email,

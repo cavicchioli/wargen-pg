@@ -28,18 +28,24 @@ exports.criaUsuario = function(req, res) {
 
 exports.validaLogin = function(req, res) {
 
-    db.validaUsuario(req, function(result) {
+    res = db.validaUsuario(req, function(result) {
 
         if (!result.sucess) {
-            console.log(result.err);
-            res.send(result.err);
-            return;
+            //console.log(result.err);
+            //res.send(result);
+            return result;
         } else {
-            console.log(result.sucess);
+            //console.log(result.sucess);
+            //res.status(200).json(result);
 
-            return res.redirect('/cubo'); 
+            //console.log(res);
+
+            
+            return result;
         }
     });
+
+     console.log(res.body);
 };
 
 
