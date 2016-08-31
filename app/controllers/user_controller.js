@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 var db = require("../models/user_model.js");
 
@@ -26,26 +26,29 @@ exports.criaUsuario = function(req, res) {
     console.log(res.body);
 };
 
-exports.validaLogin = function(req, res) {
+exports.validaLogin = function(req, res, next) {
 
-    res = db.validaUsuario(req, function(result) {
+    db.validaUsuario(req, function(result) {
 
-        if (!result.sucess) {
-            //console.log(result.err);
-            //res.send(result);
-            return result;
-        } else {
-            //console.log(result.sucess);
-            //res.status(200).json(result);
+        res.send(result);
+        console.log('Chegou a retornar da execução da função no model, que valida o user');
+       
+        //if (!result.sucess) {
+        //console.log(result.err);
+        //res.send(result);
+        //    return result;
+        // } else {
+        //console.log(result.sucess);
+        //res.status(200).json(result);
 
-            //console.log(res);
+        //console.log(res);
 
-            
-            return result;
-        }
+
+        //    return result;
+        //}
     });
 
-     console.log(res.body);
+
 };
 
 

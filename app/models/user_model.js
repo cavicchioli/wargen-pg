@@ -99,10 +99,11 @@ exports.validaUsuario = function(req, callback) {
 						callback(result);
 
 					} else {
-						console.log("passou");
+						
 
 						if (result.rows[0]["msg"] == "OK") {
 
+							console.log("Encontrou o usuário que eu tentei logar!");
 							console.log(result.rows[0]["msg"]);
 
 							var result = {

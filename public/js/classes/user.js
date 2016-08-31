@@ -1,6 +1,6 @@
-$(function () {
+$(function() {
     //MODEL
-    var Usuario = function (data) {
+    var Usuario = function(data) {
         this.nome = ko.observable(data.nome);
         this.email = ko.observable(data.email);
         this.email_conf = ko.observable(data.email_conf);
@@ -8,7 +8,7 @@ $(function () {
         this.senha_conf = ko.observable(data.senha_conf);
     };
 
-    Usuario.prototype.criaUsuario = function () {
+    Usuario.prototype.criaUsuario = function() {
 
         var request = $.ajax({
             type: "POST",
@@ -24,21 +24,34 @@ $(function () {
                 senha: this.senha(),
                 senha_conf: this.senha_conf()
 
+            },
+            sucess: function(data) {
+                console.log(data);
             }
-        }).done(function (response) {
-            console.log('obteve resposta do servidor');
-            console.log(response.res);
-            viewModel.usuarios.push(new Usuario({
-                nome: response.nome,
-                email: response.email,
-                email_conf: response.email_conf,
-                senha: response.senha,
-                senha_conf: response.senha_conf
-            }));
         });
+
+        /*
+                request.done(function (response) {
+                    console.log('obteve resposta do servidor');
+                    console.log(response.res);
+                    viewModel.usuarios.push(new Usuario({
+                        nome: response.nome,
+                        email: response.email,
+                        email_conf: response.email_conf,
+                        senha: response.senha,
+                        senha_conf: response.senha_conf
+                    }));
+                });
+
+                */
     }
 
-    Usuario.prototype.logarUsuario = function () {
+
+
+    Usuario.prototype.logarUsuario = function() {
+
+
+        console.log('O botão para logar usuário foi clicado!');
 
         var request = $.ajax({
             type: "POST",
@@ -50,27 +63,32 @@ $(function () {
             {
                 email: this.email(),
                 senha: this.senha()
-            },
-            sucess: function (data) {
-                console.log(data);
-                 console.log('chegou aqui e passou pelo login');
             }
-            //)
-        }).done(function (response) {
-           
+
+        }).done(function(response) {
+            console.log('chegou aqui e passou pelo done');
             console.log(response);
-            viewModel.usuarios.push(new Usuario({
-                email: response.email,
-                senha: response.senha 
-            }));
+
+            if (response.sucess) {
+                window.location.href = '/cubo';
+            } else {
+                $('#pnlMsg').html('<div class="alert alert-danger" role="alert">' + response.msg + '</div>');
+            }
+
+            /*
+                        viewModel.usuarios.push(new Usuario({
+                            email: response.email,
+                            senha: response.senha 
+                        }));
+                        */
         });
     }
 
-    var UsuariosViewModel = function () {
+    var UsuariosViewModel = function() {
         var self = this;
         self.usuarios = ko.observableArray();
 
-        self.addUsuario = function () {
+        self.addUsuario = function() {
             var usuario = new Usuario({
                 nome: $('#nome').val(),
                 email: $('#email').val(),
@@ -82,9 +100,9 @@ $(function () {
             usuario.criaUsuario();
         }
 
-        self.validaUsuario = function () {
+        self.validaUsuario = function() {
             var usuario = new Usuario({
-              
+
                 email: $('#email').val(),
                 senha: $('#senha').val()
             });
