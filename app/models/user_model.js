@@ -3,8 +3,8 @@
 var pg = require("pg");
 
 var config = require("../../config/index.js");
-//var bcrypt = require('bcrypt-nodejs');
-//
+var bcrypt = require('bcrypt-nodejs');
+
 exports.insere = function(req, res) {
 
 	console.log("NOVO USÁRIO:: Nome:" + req.body.nome + " Email:" + req.body.email + " Conf. Email:" + req.body.email_conf + " Senha:" + req.body.senha + " Conf. Senha:" + req.body.senha_conf);
@@ -18,56 +18,49 @@ exports.insere = function(req, res) {
 			});
 		} else {
 
-			client.query("select sp_wargen_cadastra_usuario($1,$2,$3,$4,$5) as msg", [req.body.nome, req.body.email, req.body.email_conf, req.body.senha, req.body.senha_conf],
+			bcrypt.hash(req.body.senha, null, null, function(err, hash) {
 
-				function(err, result) {
+				if (err) return next(err);
 
-					done();
+				client.query("select sp_wargen_cadastra_usuario($1,$2,$3,$4,$5) as msg", [req.body.nome, req.body.email, req.body.email_conf, hash, hash],
 
-					if (err) {
-						console.log(err);
-						res.json({
-							sucess: false,
-							msg: err
-						});
+					function(err, result) {
 
-					} else {
-						if (result.rows[0]["msg"] == "OK") {
-							res.json({
-								sucess: true,
-								msg: result.rows[0]["msg"]
-							});
-						} else {
+						done();
+
+						if (err) {
+							console.log(err);
 							res.json({
 								sucess: false,
-								msg: result.rows[0]["msg"]
+								msg: err
 							});
+
+						} else {
+							if (result.rows[0]["msg"] == "OK") {
+								res.json({
+									sucess: true,
+									msg: result.rows[0]["msg"]
+								});
+							} else {
+								res.json({
+									sucess: false,
+									msg: result.rows[0]["msg"]
+								});
+							}
 						}
-					}
 
-					client.end();
+						client.end();
 
-				});
+					});
+			});
 		}
+
 	});
-
-	/* FUNÇÃO PARA FAZER O HASH DA SENHA DO USUARIO
-
-bcrypt.hash(req.senha, null, null, function(err, hash) {
-    if (err) return next(err);
-
-    console.log('hash: ' + hash);
-
-    user.senha = hash;
-    next();
-  });
-  */
-
 };
 
 exports.validaUsuario = function(req, callback) {
 
-	//console.log("senha: " + req.body.senha + " email: " + req.body.email);
+	console.log("LOGIN USÁRIO: Email:" + req.body.email + "Senha:" + req.body.senha);
 
 	pg.connect(config.connectionString, function(err, client, done) {
 		if (err) {
@@ -82,7 +75,7 @@ exports.validaUsuario = function(req, callback) {
 
 		} else {
 
-			client.query("select sp_wargen_valida_usuario($1,$2) as msg", [req.body.email, req.body.senha],
+			client.query("select usu_cod, usu_nome, usu_email, usu_senha as hash, usu_tipo from usuarios where usu_dtcanc is null and usu_email = $1", [req.body.email],
 
 				function(err, result) {
 
@@ -99,19 +92,27 @@ exports.validaUsuario = function(req, callback) {
 						callback(result);
 
 					} else {
-						
 
-						if (result.rows[0]["msg"] == "OK") {
+						if (result.rowCount > 0) {
+							bcrypt.compare(req.body.senha, result.rows[0]["hash"], function(err, res) {
 
-							console.log("Encontrou o usuário que eu tentei logar!");
-							console.log(result.rows[0]["msg"]);
+								if (res) {
+									var result = {
+										sucess: true,
+										msg: result.rows[0]["msg"]
+									};
+								} else {
+									var result = {
+										sucess: false,
+										msg: result.rows[0]["msg"]
+									};
+								}
 
-							var result = {
-								sucess: true,
-								msg: result.rows[0]["msg"]
-							};
+								callback(result);
+							});
 
-							callback(result);
+
+
 						} else {
 							console.log(result.rows[0]["msg"]);
 
@@ -127,6 +128,7 @@ exports.validaUsuario = function(req, callback) {
 					client.end();
 
 				});
+
 		}
 	});
 };
@@ -142,7 +144,6 @@ exports.todosUsuarios = function(req, res) {
 				erro: err
 			});
 		} else {
-
 
 			client.query(sql, function(err, result) {
 

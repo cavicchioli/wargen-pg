@@ -8,6 +8,8 @@ $(function() {
         this.senha_conf = ko.observable(data.senha_conf);
     };
 
+
+
     Usuario.prototype.criaUsuario = function() {
 
         var request = $.ajax({
