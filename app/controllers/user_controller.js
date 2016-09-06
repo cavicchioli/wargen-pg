@@ -4,21 +4,6 @@ var db = require("../models/user_model.js");
 
 var config = require("../../config/index.js");
 
-/**
- * Cria um token do usuário que é passado, afim de usar na sessão e validação do usuário (middleware)
- 
-function createToken(user) {
-
-    var token = jsonwebtoken.sign({
-        _id: user._id,
-        nome: user.nome,
-        email: user.email
-    }, config.secretKey, {
-        expiresIn: 86400
-    });
-    return token;
-};
-*/
 
 exports.criaUsuario = function(req, res) {
     if (req.body.nome == null || req.body.nome == undefined) {
@@ -77,6 +62,7 @@ exports.validaLogin = function(req, res, next) {
         db.validaUsuario(req, function(result) {
 
             res.send(result);
+            console.log(result);
             console.log('Chegou a retornar da execução da função no model, que valida o user');
         });
     }

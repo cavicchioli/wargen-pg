@@ -4,6 +4,26 @@ var pg = require("pg");
 
 var config = require("../../config/index.js");
 var bcrypt = require('bcrypt-nodejs');
+var jwt = require('jsonwebtoken');
+
+/**
+ * Cria um token do usuário que é passado, afim de usar na sessão e validação do usuário (middleware)
+*/
+
+function criaToken(id, nome, email, tipo) {
+
+    var token = jwt.sign({
+        _id: id,
+        nome: nome,
+        email: email,
+        tipo:tipo
+    }, config.secretKey, {
+        expiresIn: 86400
+    });
+    return token;
+};
+
+
 
 exports.insere = function(req, res) {
 
@@ -68,7 +88,8 @@ exports.validaUsuario = function(req, callback) {
 
 			var result = {
 				sucess: false,
-				msg: err
+				msg: err,
+				token: null
 			};
 
 			callback(result);
@@ -84,12 +105,13 @@ exports.validaUsuario = function(req, callback) {
 					if (err) {
 						console.log(err);
 
-						var result = {
+						var ret = {
 							sucess: false,
-							msg: err
+							msg: err,
+							token: null
 						};
 
-						callback(result);
+						callback(ret);
 
 					} else {
 
@@ -97,31 +119,33 @@ exports.validaUsuario = function(req, callback) {
 							bcrypt.compare(req.body.senha, result.rows[0]["hash"], function(err, res) {
 
 								if (res) {
-									var result = {
+									var ret = {
 										sucess: true,
-										msg: result.rows[0]["msg"]
+										msg: 'OK',
+										token: criaToken(result.rows[0]["usu_cod"],result.rows[0]["usu_nome"],result.rows[0]["usu_email"],result.rows[0]["usu_tipo"])
 									};
 								} else {
-									var result = {
+									var ret = {
 										sucess: false,
-										msg: result.rows[0]["msg"]
+										msg: 'Email / Senha inválido.',
+										token: null
 									};
 								}
 
-								callback(result);
+								callback(ret);
 							});
 
 
 
 						} else {
-							console.log(result.rows[0]["msg"]);
 
-							var result = {
+							var ret = {
 								sucess: false,
-								msg: result.rows[0]["msg"]
+								msg: 'Email / Senha inválido.',
+								token: null
 							};
 
-							callback(result);
+							callback(ret);
 						}
 					}
 
