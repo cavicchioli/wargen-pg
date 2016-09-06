@@ -30,25 +30,23 @@ $(function() {
             sucess: function(data) {
                 console.log(data);
             }
+        }).done(function(response) {
+            console.log(response);
+
+            if (response.sucess) {
+                window.location.href = '/login';
+            } else {
+                $('#pnlMsg').html('<div class="alert alert-danger" role="alert">' + response.msg + '</div>');
+            }
+
+            /*
+                        viewModel.usuarios.push(new Usuario({
+                            email: response.email,
+                            senha: response.senha 
+                        }));
+                        */
         });
-
-        /*
-                request.done(function (response) {
-                    console.log('obteve resposta do servidor');
-                    console.log(response.res);
-                    viewModel.usuarios.push(new Usuario({
-                        nome: response.nome,
-                        email: response.email,
-                        email_conf: response.email_conf,
-                        senha: response.senha,
-                        senha_conf: response.senha_conf
-                    }));
-                });
-
-                */
     }
-
-
 
     Usuario.prototype.logarUsuario = function() {
 
@@ -72,7 +70,7 @@ $(function() {
             console.log(response);
 
             if (response.sucess) {
-                window.location.href = '/cubo';
+                window.location.href = '/dev';
             } else {
                 $('#pnlMsg').html('<div class="alert alert-danger" role="alert">' + response.msg + '</div>');
             }
