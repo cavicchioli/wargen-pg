@@ -84,12 +84,12 @@ exports.validaUsuario = function(req, callback) {
 					if (err) {
 						console.log(err);
 
-						var result = {
+						var ret = {
 							sucess: false,
 							msg: err
 						};
 
-						callback(result);
+						callback(ret);
 
 					} else {
 
@@ -97,18 +97,18 @@ exports.validaUsuario = function(req, callback) {
 							bcrypt.compare(req.body.senha, result.rows[0]["hash"], function(err, res) {
 
 								if (res) {
-									var result = {
+									var ret = {
 										sucess: true,
 										msg: result.rows[0]["msg"]
 									};
 								} else {
-									var result = {
+									var ret = {
 										sucess: false,
 										msg: result.rows[0]["msg"]
 									};
 								}
 
-								callback(result);
+								callback(ret);
 							});
 
 
@@ -116,12 +116,12 @@ exports.validaUsuario = function(req, callback) {
 						} else {
 							console.log(result.rows[0]["msg"]);
 
-							var result = {
+							var ret = {
 								sucess: false,
 								msg: result.rows[0]["msg"]
 							};
 
-							callback(result);
+							callback(ret);
 						}
 					}
 
