@@ -15,8 +15,11 @@ module.exports = function(server) {
 	server.get('/cubo',function(req,res) {
 		res.render('pages/wargen/cubo',{titulo:'Cubo'})});
 
-
 	server.get('/dev',function(req,res) {
 		res.render('pages/wargen/dev',{titulo:'Desenvolvimento'})});
+
+
+	server.get('/projeto',function(req,res) {
+		res.render('pages/wargen/novo-projeto',{titulo:'Novo Projeto'})});
 
 };

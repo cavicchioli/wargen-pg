@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<!-- Bootstrap 3.3.5 -->
+	<link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+	<title>WARGEN - <%= titulo %></title>
+</head>
+<body>
+
+	<div class="hold-transition register-page">
+		<div class="register-box">
+			<div class="register-logo">
+				<a href="/index"><b>WAR</b>GEN</a>
+			</div>
+
+			<div class="register-box-body">
+				<p class="login-box-msg">Novo Projeto</p>
+				
+				<div class="form-group has-feedback">
+					<input id="nome" type="text" class="form-control" placeholder="Nome">
+					<span class="form-control-feedback"></span>
+				</div>
+				<div class="form-group has-feedback">
+					<input id="desc" type="text" class="form-control" placeholder="Descrição">
+					<span class="form-control-feedback"></span>
+				</div>
+				<div class="form-group has-feedback">
+					<input id="tipo" type="text" class="form-control" placeholder="Tipo">
+					<span class="form-control-feedback"></span>
+				</div>
+				<div class="row">
+					<div class="col-xs-8">
+					</div><!-- /.col -->
+					<div class="col-xs-4">
+						<button id="btnCriaProjeto" type="button" class="btn btn-primary btn-block btn-flat" data-bind="click: criaProjeto">Registrar</button>
+					</div><!-- /.col -->
+				</div>
+				<div class="row">
+					<br/>
+					<div id="pnlMsg" class="col-xs-12"></div>
+				</div>
+			</div><!-- /.form-box -->
+		</div><!-- /.register-box -->
+
+	</div>
+
+	<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+	<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+
+	<script src="js/classes/projeto.js"></script>
+</body>
+</html>
+
+

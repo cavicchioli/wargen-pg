@@ -89,6 +89,4 @@ exports.RetornaUsuarios = function(req, res) {
                 });
                 */
     });
-
-
 };

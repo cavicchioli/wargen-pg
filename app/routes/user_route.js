@@ -2,6 +2,9 @@
 
 module.exports = function(server) {
 
+
+	//ROTAS DA API DE USUARIOS
+
 	//forma antiga de fazer o require
 	//var user = require("../../app/controllers/users.js");
 

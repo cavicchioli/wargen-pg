@@ -50,7 +50,6 @@ $(function() {
 
     Usuario.prototype.logarUsuario = function() {
 
-
         console.log('O botão para logar usuário foi clicado!');
 
         var request = $.ajax({
@@ -70,6 +69,9 @@ $(function() {
             console.log(response);
 
             if (response.sucess) {
+                  console.log(response.token);
+
+                localStorage.setItem("token", response.token);
                 window.location.href = '/dev';
             } else {
                 $('#pnlMsg').html('<div class="alert alert-danger" role="alert">' + response.msg + '</div>');

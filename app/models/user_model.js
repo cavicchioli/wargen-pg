@@ -22,8 +22,6 @@ function criaToken(id, nome, email, tipo) {
 	return token;
 };
 
-
-
 exports.insere = function(req, callback) {
 
 	console.log("NOVO USÁRIO:: Nome:" + req.body.nome + " Email:" + req.body.email + " Conf. Email:" + req.body.email_conf + " Senha:" + req.body.senha + " Conf. Senha:" + req.body.senha_conf);
@@ -206,5 +204,4 @@ exports.todosUsuarios = function(req, res) {
 			});
 		}
 	});
-
 };
