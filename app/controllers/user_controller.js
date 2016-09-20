@@ -42,8 +42,11 @@ exports.criaUsuario = function(req, res) {
             msg: 'O campo E-MAIL e CONFIRMAR E-MAIL não conferem.'
         });
     } else {
-        db.insere(req, res);
-        console.log(res.body);
+        db.insere(req,function(result) {
+
+            res.send(result);
+            console.log(result);
+        });
     }
 };
 

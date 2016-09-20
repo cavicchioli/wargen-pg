@@ -18,21 +18,6 @@ module.exports = function(server) {
 
 	server.post('/usuario/logar', user.validaLogin);
 
-	server.get('/usuario/teste', function(req, res) {
-
-		res.json(200, [{
-			name: "Item 1 from server",
-			complete: false
-		}, {
-			name: "Item 2 from server",
-			complete: false
-		}, {
-			name: "Completed Item from server",
-			complete: true
-		}]);
-		res.end();
-	});
-
 
 	//rote to login a user and create a token
 	//server.post('/login', user.login);

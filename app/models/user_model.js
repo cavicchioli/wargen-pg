@@ -8,39 +8,49 @@ var jwt = require('jsonwebtoken');
 
 /**
  * Cria um token do usuário que é passado, afim de usar na sessão e validação do usuário (middleware)
-*/
-
+ */
 function criaToken(id, nome, email, tipo) {
 
-    var token = jwt.sign({
-        _id: id,
-        nome: nome,
-        email: email,
-        tipo:tipo
-    }, config.secretKey, {
-        expiresIn: 86400
-    });
-    return token;
+	var token = jwt.sign({
+		_id: id,
+		nome: nome,
+		email: email,
+		tipo: tipo
+	}, config.secretKey, {
+		expiresIn: 86400
+	});
+	return token;
 };
 
 
 
-exports.insere = function(req, res) {
+exports.insere = function(req, callback) {
 
 	console.log("NOVO USÁRIO:: Nome:" + req.body.nome + " Email:" + req.body.email + " Conf. Email:" + req.body.email_conf + " Senha:" + req.body.senha + " Conf. Senha:" + req.body.senha_conf);
 
 	pg.connect(config.connectionString, function(err, client, done) {
 		if (err) {
 
-			res.json({
+			var ret = {
 				sucess: false,
 				msg: err
-			});
+			};
+
+			callback(ret);
+
 		} else {
 
 			bcrypt.hash(req.body.senha, null, null, function(err, hash) {
 
-				if (err) return next(err);
+				if (err) {
+
+					var ret = {
+						sucess: false,
+						msg: err
+					};
+
+					callback(ret);
+				}
 
 				client.query("select sp_wargen_cadastra_usuario($1,$2,$3,$4,$5) as msg", [req.body.nome, req.body.email, req.body.email_conf, hash, hash],
 
@@ -50,22 +60,29 @@ exports.insere = function(req, res) {
 
 						if (err) {
 							console.log(err);
-							res.json({
+
+							var ret = {
 								sucess: false,
 								msg: err
-							});
+							};
+
+							callback(ret);
 
 						} else {
 							if (result.rows[0]["msg"] == "OK") {
-								res.json({
+
+								var ret = {
 									sucess: true,
-									msg: result.rows[0]["msg"]
-								});
+									msg: 'OK'
+								};
+								callback(ret);
+
 							} else {
-								res.json({
+								var ret = {
 									sucess: false,
 									msg: result.rows[0]["msg"]
-								});
+								};
+								callback(ret);
 							}
 						}
 
@@ -83,16 +100,17 @@ exports.validaUsuario = function(req, callback) {
 	console.log("LOGIN USÁRIO: Email:" + req.body.email + "Senha:" + req.body.senha);
 
 	pg.connect(config.connectionString, function(err, client, done) {
+
 		if (err) {
 			console.log(err);
 
-			var result = {
+			var ret = {
 				sucess: false,
 				msg: err,
 				token: null
 			};
 
-			callback(result);
+			callback(ret);
 
 		} else {
 
@@ -122,7 +140,7 @@ exports.validaUsuario = function(req, callback) {
 									var ret = {
 										sucess: true,
 										msg: 'OK',
-										token: criaToken(result.rows[0]["usu_cod"],result.rows[0]["usu_nome"],result.rows[0]["usu_email"],result.rows[0]["usu_tipo"])
+										token: criaToken(result.rows[0]["usu_cod"], result.rows[0]["usu_nome"], result.rows[0]["usu_email"], result.rows[0]["usu_tipo"])
 									};
 								} else {
 									var ret = {
