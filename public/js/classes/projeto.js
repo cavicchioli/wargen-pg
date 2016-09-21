@@ -30,6 +30,9 @@ $(function() {
                 alert('Cadastrou o Projeto');
                 //window.location.href = '/login';
             } else {
+
+
+                alert(response.msg);
                 $('#pnlMsg').html('<div class="alert alert-danger" role="alert">' + response.msg + '</div>');
             }
 
@@ -51,7 +54,7 @@ $(function() {
             var projeto = new Projeto({
                 nome: $('#nome').val(),
                 desc: $('#desc').val(),
-                tipo: $('#tipo').val()
+                tipo: $('input[name="tipo"]:checked').val()
             });
 
             projeto.insereProjeto();
