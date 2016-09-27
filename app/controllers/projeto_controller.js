@@ -32,3 +32,13 @@ exports.insereProjeto = function(req, res) {
         });
     }
 };
+
+
+exports.retornaProjetoPorUsuario = function(req, res) {
+
+        db.retornaProjetoPorUsuario(req,function(result) {
+            res.send(result);
+            console.log(result);
+        });
+   
+};

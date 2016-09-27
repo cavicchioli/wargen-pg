@@ -8,4 +8,7 @@ module.exports = function(server) {
 
 	server.post('/projeto/criar', projeto.insereProjeto);
 
+
+	server.get('/projeto/usuarios', projeto.retornaProjetoPorUsuario);
+
 };

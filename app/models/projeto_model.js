@@ -93,28 +93,34 @@ var config = require("../../config/index.js");
  	});
  };
 
- exports.retornaProjetoPorUsuario = function(req, res) {
+ exports.retornaProjetoPorUsuario = function(req, callback) {
 
  	pg.connect(config.connectionString, function(err, client, done) {
  		if (err) {
 
- 			res.send({
- 				erro: err
- 			});
+ 			var ret = {
+ 				sucess: false,
+ 				msg: err
+ 			};
+
+ 			callback(ret);
  		} else {
 
- 			client.query("select * from projetos where usu_cod = $1", [req.body.usuario], function(err, result) {
+			//5 - victor passar o usuário que vem do token
+ 			client.query("select * from projetos where usu_cod = $1 and pro_dtcanc is null", [5], function(err, result) {
 
  				done();
 
  				if (err) {
- 					console.log(err);
- 					res.send({
- 						erro: err
- 					});
+ 					var ret = {
+ 						sucess: false,
+ 						msg: err
+ 					};
+
+ 					callback(ret);
  				} else {
 
- 					res.send(result.rows);
+ 					callback(result.rows);
  				}
 
  				client.end();
