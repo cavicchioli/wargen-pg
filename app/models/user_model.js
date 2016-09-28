@@ -205,3 +205,34 @@ exports.todosUsuarios = function(req, res) {
 		}
 	});
 };
+
+exports.verificaToken = function(req, res) {
+
+	console.log("Alguém está validando um token");
+
+	var token = req.body.token || req.param('token') || req.headers['x-access-token'];
+
+console.log(token);
+
+	if (token) {
+		jwt.verify(token, config.secretKey, function(err, decoded) {
+
+			if(err){
+				console.log(err);
+			}
+			else
+			{
+				req.decoded = decoded;
+
+				//next();
+			}
+
+		});
+	}
+	else
+	{
+		console.log(err);
+	}
+}
+
+

@@ -90,3 +90,11 @@ exports.RetornaUsuarios = function(req, res) {
                 */
     });
 };
+
+exports.verificaToken = function(req, res) {
+        db.verificaToken(req,res, function (result) {
+            res.send(result);
+            console.log(result);
+        });
+    
+};

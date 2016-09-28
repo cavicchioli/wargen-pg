@@ -6,8 +6,6 @@ var config = require("../../config/index.js");
 
 exports.insereProjeto = function(req, res) {
 
-
-
     if (req.body.nome == null || req.body.nome == undefined || req.body.nome == '') {
         res.send({
             sucess: false,
@@ -42,3 +40,4 @@ exports.retornaProjetoPorUsuario = function(req, res) {
         });
    
 };
+
