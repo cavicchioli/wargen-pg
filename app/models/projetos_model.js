@@ -1,3 +1,5 @@
+/*
+
 'use strict';
 
 var pg = require("pg");
@@ -129,3 +131,5 @@ var config = require("../../config/index.js");
  		}
  	});
  };
+
+ */

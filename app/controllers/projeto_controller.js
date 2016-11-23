@@ -1,4 +1,4 @@
-'use strict';
+/*'use strict';
 
 var db = require("../models/projeto_model.js");
 
@@ -41,3 +41,4 @@ exports.retornaProjetoPorUsuario = function(req, res) {
    
 };
 
+*/
