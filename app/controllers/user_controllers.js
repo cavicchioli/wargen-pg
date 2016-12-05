@@ -6,8 +6,6 @@
 'use strict';
 
 var db = require("../models/user_model.js");
-var config = require("../../config/index.js");
-
 
 exports.newUser = function(req, res) {
     if (req.body.name == null || req.body.name == undefined) {

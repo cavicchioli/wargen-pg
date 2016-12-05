@@ -9,7 +9,7 @@
 6 silly lifecycle wargen@0.0.1~prestart: no script for prestart, continuing
 7 info lifecycle wargen@0.0.1~start: wargen@0.0.1
 8 verbose lifecycle wargen@0.0.1~start: unsafe-perm in lifecycle true
-9 verbose lifecycle wargen@0.0.1~start: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\wargen-pg\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\victorcavichiolli\AppData\Local\Microsoft\WindowsApps;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\victorcavichiolli\AppData\Roaming\npm
+9 verbose lifecycle wargen@0.0.1~start: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;C:\wargen-pg\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\victorcavichiolli\AppData\Local\Microsoft\WindowsApps;;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\victorcavichiolli\AppData\Roaming\npm
 10 verbose lifecycle wargen@0.0.1~start: CWD: C:\wargen-pg
 11 silly lifecycle wargen@0.0.1~start: Args: [ '/d /s /c', 'set NODE_ENV=development&& nodemon ./bin/www' ]
 12 silly lifecycle wargen@0.0.1~start: Returned: code: 3221225786  signal: null
