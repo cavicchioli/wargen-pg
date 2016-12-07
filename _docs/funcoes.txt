@@ -49,3 +49,4 @@ Comportamento pré-configurado
 Agrupar Componentes na Cena
 Executar Aplicação
 
+//pensar em fazer uma função que executa comandos no banco não faz sentido eu copiar todo codigo sempre!

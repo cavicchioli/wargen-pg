@@ -1,6 +1,6 @@
 /**
  * @author Victor Cavichiolli ~xvictorprado@gmail.com
- * @since 2016-12-02
+ * @since 2016-12-07
  */
 
 'use strict';
@@ -10,16 +10,12 @@ var config = require("../../config/index.js");
 
 /**
  * @method GET
- * @description Retorna todos os incidentes de um usuário
+ * @description Retorna todas as grandes áreas do cnpq
  *              
  */
 exports.retornaTodasGrandesAreas = function(req, callback) {
 
-
-
-
-
-    var sql = "select grd_codigo, grd_nome from cnpq_grandes_areas where grd_dtcanc is null";
+    var sql = "select i.inc_cod, i.usu_cod, p.pro_cod, p.pro_nome, i.dep_cod, i.inc_dtreg, i.inc_tprelato, i.inc_descricao, i.inc_dterro ,i.inc_gravidade ,i.inc_comoreproduzir ,i.inc_comportamentoatual ,i.inc_comportamentoesperado ,i.inc_resolucao, ,i.inc_dtvisu ,i.inc_resposta ,i.inc_dtresp from incidentes i, projetos p where p.pro_cod = i.pro_cod and i.usu_cod = $1";
 
     pg.connect(config.connectionString, function(err, client, done) {
         if (err) {
