@@ -15,10 +15,6 @@ var config = require("../../config/index.js");
  */
 exports.retornaTodasGrandesAreas = function(req, callback) {
 
-
-
-
-
     var sql = "select grd_codigo, grd_nome from cnpq_grandes_areas where grd_dtcanc is null";
 
     pg.connect(config.connectionString, function(err, client, done) {
